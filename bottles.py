@@ -20,6 +20,7 @@ class Heal(Bottle):
 
     def use(self, player, target: None) -> bool:
         player.hp = min(100, player.hp + 10)
+        return True
 
 
 class Damage(Bottle):
@@ -34,8 +35,8 @@ class Force(Bottle):
     name = "Force"
     price = 5
 
-    def use(self, player, target) -> bool:
-        if any([app > 0 for _, app in player.strengthApplications.items()]):
+    def use(self, player, target: None) -> bool:
+        if len(player.strengthApplications) > 0:
             return False
         player.strength += 0.10
         player.strengthApplications.append({3: 0.10})
